@@ -48,6 +48,7 @@ router.post('/book-flight', async (req,res) => {
         destination = req.body.destination,
         phone = req.body.phone,
         date = req.body.date_of_flight;
+        console.log(req.body);
 
     try{
         const entry = new Model({
@@ -56,14 +57,13 @@ router.post('/book-flight', async (req,res) => {
             phone: phone,
             date: date
         });
+        console.log(entry);
         const data = await entry.save();
         res.json({"status":"True"});
 
     }catch{
         res.json(err);
     }
-
-    res.status(200).json({"status":"True"});
     
 });
 

@@ -47,7 +47,9 @@ router.post('/book-flight', async (req,res) => {
     const source = req.body.source,
         destination = req.body.destination,
         phone = req.body.phone,
-        date = req.body.date_of_flight;
+        date = req.body.date,
+        flight_id= req.body.flight_id;
+
         console.log(req.body);
 
     try{
@@ -55,7 +57,8 @@ router.post('/book-flight', async (req,res) => {
             source : source,
             destination: destination,
             phone: phone,
-            date: date
+            date: date,
+            flight_id: flight_id
         });
         console.log(entry);
         const data = await entry.save();

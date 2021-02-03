@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
-const model = schema({
-    flight_id:{
+const flightSchema = schema({
+    flight_id: {
         type:String,
         validate:{
             validator: function(v){
@@ -12,18 +12,9 @@ const model = schema({
         },
         required: [true, 'flight_id required']
     },
-    source: String,
-    destination: String,
-    phone: {
-        type: String,
-        validate:{
-            validator: function(v){
-                return /\d{10}/.test(v);
-            },
-            message: props=> `${props.value} is not a valid number`
-        }
-    },
-    date: { 
+    image_url : String,
+    price: Number,
+    date_of_flight:{
         type:String,
         validate:{
             validator: function(v){
@@ -32,7 +23,8 @@ const model = schema({
             message: props => `${props.value} is not a valid date of flight`
         },
         required: [true, 'flight date required']
-    }
+    },
+    link: String
 });
 
-module.exports = mongoose.model('model', model);
+module.exports = mongoose.model('flight', flightSchema);

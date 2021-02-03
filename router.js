@@ -16,7 +16,7 @@ router.get('/flight-details/:status', (req,res) => {
         }
         res.status(404).json(response);
     }
-    else{
+    else if(status == 200){
         const response = {
             "error" : "None",
             "items":[{
@@ -50,8 +50,6 @@ router.post('/book-flight', async (req,res) => {
         date = req.body.date,
         flight_id= req.body.flight_id;
 
-        console.log(req.body);
-
     try{
         const entry = new Model({
             source : source,
@@ -60,11 +58,14 @@ router.post('/book-flight', async (req,res) => {
             date: date,
             flight_id: flight_id
         });
-        console.log(entry);
-        const data = await entry.save();
+        
+        const data = await entry.save(err => {
+            if(err)
+                console.log(err);
+        });
         res.json({"status":"True"});
 
-    }catch{
+    }catch(err){
         res.json(err);
     }
     
@@ -74,11 +75,9 @@ router.get('/all-flights', async (req,res) => {
     try{
         const data = await Model.find();
         res.json(data);
-    }catch{
+    }catch(err){
         res.json(err)
     }
-    // const data = db.get('items').find().value();
-    // res.status(200).json(data);
 })
 
 module.exports = router;
